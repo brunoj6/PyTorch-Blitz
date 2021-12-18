@@ -40,3 +40,31 @@ if torch.cuda.is_available():
   tensor = tensor.to('cuda')
   print(f"Device tensor is stored on: {tensor.device}")
 ```
+
+
+## Autograd
+
+Forward Prop : NN makes guesses about correct output given some input.
+Back Prop : NN updates parameters based on error of previous output. 
+
+Load some model
+```
+model = torchvision.models.resnet18(pretrained=True)
+```
+
+Single Training Step
+```
+prediction = model(data) # forward pass
+loss = (prediction - labels).sum() # calculate loss
+loss.backward() # backward pass
+optim = torch.optim.SGD(model.parameters(), lr=1e-2, momentum=0.9) # call an optimizer
+optim.step() # gradient descent
+```
+
+When Tensor Differentiation is Required
+```
+a = torch.tensor([2., 3.], requires_grad=True)
+b = torch.tensor([6., 4.], requires_grad=True)
+```
+
+
